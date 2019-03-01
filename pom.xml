@@ -2,12 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.liyiorg</groupId>
-    <artifactId>weixin-popular</artifactId>
+    <groupId>com.cootf.wechat</groupId>
+    <artifactId>wechat-common</artifactId>
     <version>2.8.26</version>
 
-    <name>weixin-popular</name>
-    <description>The weixin-popular is a JAVA SDK for weixin. Weixin web url is https://mp.weixin.qq.com.</description>
+    <name>wechat-common</name>
+    <description>The wechat-common is a JAVA SDK for weixin. Weixin web url is https://mp.weixin.qq.com.</description>
     <url>https://github.com/liyiorg/weixin-popular</url>
 
     <licenses>
@@ -19,20 +19,37 @@
 
     <developers>
         <developer>
-            <name>Yi Li</name>
-            <email>liuemc@msn.com</email>
+            <name>mengsj</name>
+            <email>meshji66@163.com</email>
         </developer>
     </developers>
 
+    <distributionManagement>
+        <!--Version 为xxxx-Releases时，使用mvn package deploy会发布到该地址 -->
+        <repository>
+            <id>releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.8.244:8081/repository/maven-releases/</url>
+        </repository>
+        <!--Version 为xxxx-SNAPSHOT时，使用mvn package deploy会发布到该地址 -->
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://192.168.8.244:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <scm>
-        <connection>scm:git:git@github.com:liyiorg/weixin-popular.git</connection>
-        <developerConnection>scm:git:git@github.com:liyiorg/weixin-popular.git</developerConnection>
-        <url>git@github.com:liyiorg/weixin-popular.git</url>
+        <connection>scm:git:git@github.com:mengshijian/weixin-popular.git</connection>
+        <developerConnection>scm:git:git@github.com:mengshijian/weixin-popular.git</developerConnection>
+        <url>git@github.com:mengshijian/weixin-popular.git</url>
     </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <compiler.source>1.8</compiler.source>
+        <compiler.target>1.8</compiler.target>
     </properties>
 
     <dependencies>
@@ -105,9 +122,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <encoding>UTF-8</encoding>
+                    <source>${compiler.source}</source>
+                    <target>${compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
 
@@ -142,7 +159,7 @@
                             <docencoding>utf-8</docencoding>
                             <locale>zh_CN</locale>
                             <show>public</show>
-                            <excludePackageNames>weixin.popular.bean.*</excludePackageNames>
+                            <excludePackageNames>com.cootf.wechat.bean.*</excludePackageNames>
                         </configuration>
                         <executions>
                             <execution>
@@ -181,17 +198,4 @@
             </build>
         </profile>
     </profiles>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>oss</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>oss</id>
-            <name>Nexus Release Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 </project>
