@@ -10,7 +10,7 @@ public class TokenManagerListener implements ServletContextListener{
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		//WEB容器 初始化时调用
-		TokenManager.init("appid", "secret");
+		TokenManager.init("appid", "secret","code");
 	}
 
 	@Override

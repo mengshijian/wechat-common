@@ -73,8 +73,8 @@ public class TokenManager{
 	 * @param appid appid
 	 * @param secret secret
 	 */
-	public static void init(final String appid,final String secret){
-		init(appid, secret, 0, 60*118);
+	public static void init(final String appid,final String secret,String code){
+		init(appid, secret,code, 0, 60*118);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class TokenManager{
 	 * @param initialDelay 首次执行延迟（秒）
 	 * @param delay 执行间隔（秒）
 	 */
-	public static void init(final String appid,final String secret,int initialDelay,int delay){
+	public static void init(final String appid,final String secret,String code,int initialDelay,int delay){
 		if(scheduledExecutorService == null){
 			initScheduledExecutorService();
 		}
@@ -96,22 +96,22 @@ public class TokenManager{
 		}
 		//立即执行一次
 		if(initialDelay == 0){
-			doRun(appid, secret);
+			doRun(appid, secret,code);
 		}
 		ScheduledFuture<?> scheduledFuture =  scheduledExecutorService.scheduleWithFixedDelay(new Runnable() {
 			@Override
 			public void run() {
-				doRun(appid, secret);
+				doRun(appid, secret,code);
 			}
 		},initialDelay == 0 ? delay : initialDelay,delay,TimeUnit.SECONDS);
 		futureMap.put(appid, scheduledFuture);
 		logger.info("appid:{}",appid);
 	}
 	
-	private static void doRun(final String appid, final String secret) {
+	private static void doRun(final String appid, final String secret,String code) {
 		try {
-			Token token = TokenAPI.token(appid,secret);
-			tokenMap.put(appid,token.getAccess_token());
+			Token token = TokenAPI.token(appid,secret,code);
+			tokenMap.put(appid,token.getAccessToken());
 			logger.info("ACCESS_TOKEN refurbish with appid:{}",appid);
 		} catch (Exception e) {
 			logger.error("ACCESS_TOKEN refurbish error with appid:{}",appid);

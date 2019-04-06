@@ -57,6 +57,4 @@ public class PayMchJsServlet extends HttpServlet{
 			request.getRequestDispatcher("pay_example.jsp").forward(request,response);
 		}
 	}
-
-
 }

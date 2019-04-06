@@ -8,7 +8,7 @@
 
     <name>wechat-common</name>
     <description>The wechat-common is a JAVA SDK for weixin. Weixin web url is https://mp.weixin.qq.com.</description>
-    <url>https://github.com/liyiorg/weixin-popular</url>
+    <url>https://github.com/mengshijian/weixin-common</url>
 
     <licenses>
         <license>
@@ -55,8 +55,8 @@
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -112,6 +112,12 @@
             <groupId>com.vdurmont</groupId>
             <artifactId>emoji-java</artifactId>
             <version>4.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.json</groupId>
+                    <artifactId>json</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
