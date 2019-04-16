@@ -96,21 +96,21 @@ public class TokenManager{
 		}
 		//立即执行一次
 		if(initialDelay == 0){
-			doRun(appid, secret,code);
+			doRun(appid, secret);
 		}
 		ScheduledFuture<?> scheduledFuture =  scheduledExecutorService.scheduleWithFixedDelay(new Runnable() {
 			@Override
 			public void run() {
-				doRun(appid, secret,code);
+				doRun(appid, secret);
 			}
 		},initialDelay == 0 ? delay : initialDelay,delay,TimeUnit.SECONDS);
 		futureMap.put(appid, scheduledFuture);
 		logger.info("appid:{}",appid);
 	}
 	
-	private static void doRun(final String appid, final String secret,String code) {
+	private static void doRun(final String appid, final String secret) {
 		try {
-			Token token = TokenAPI.token(appid,secret,code);
+			Token token = TokenAPI.token(appid,secret);
 			tokenMap.put(appid,token.getAccessToken());
 			logger.info("ACCESS_TOKEN refurbish with appid:{}",appid);
 		} catch (Exception e) {
