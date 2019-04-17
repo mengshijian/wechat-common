@@ -76,8 +76,8 @@ public class TokenManager {
    * @param appid appid
    * @param secret secret
    */
-  public static void init(final String appid, final String secret, String code) {
-    init(appid, secret, code, 0, 60 * 118);
+  public static void init(final String appid, final String secret) {
+    init(appid, secret, 0, 60 * 118);
   }
 
   /**
@@ -88,7 +88,7 @@ public class TokenManager {
    * @param initialDelay 首次执行延迟（秒）
    * @param delay 执行间隔（秒）
    */
-  public static void init(final String appid, final String secret, String code, int initialDelay,
+  public static void init(final String appid, final String secret, int initialDelay,
       int delay) {
     if (scheduledExecutorService == null) {
       initScheduledExecutorService();
