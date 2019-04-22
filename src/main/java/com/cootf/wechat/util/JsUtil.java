@@ -165,7 +165,7 @@ public abstract class JsUtil {
 		map.put("timestamp", timestamp);
 		map.put("nonceStr", nonceStr);
 		map.put("signature", signature);
-		map.put("jsApiList", jsApiList == null ? ALL_JS_API_LIST : jsApiList);
+		map.put("jsApiList", (jsApiList == null || jsApiList.length < 1) ? ALL_JS_API_LIST : jsApiList);
 		return JsonUtil.toJSONString(map);
 	}
 
@@ -177,8 +177,8 @@ public abstract class JsUtil {
 	 * @param key 商户支付密钥
 	 * @return json
 	 */
-	public static String generateChooseWXPayJson(String prepay_id,String appId,String key){
-		String json = PayUtil.generateMchPayJsRequestJson(prepay_id, appId, key);
+	public static String generateChooseWXPayJson(String prepay_id,String appId,String key,String signType){
+		String json = PayUtil.generateMchPayJsRequestJson(prepay_id, appId, key,signType);
 		json = json.replaceAll("\"timeStamp\"","\"timestamp\"")
 				   .replaceAll(",?\"appId\":\"[^\"]*\",?","");
 		return json;

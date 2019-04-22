@@ -10,7 +10,6 @@ package com.qq.weixin.mp.aes;
 
 import java.io.StringReader;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -36,19 +35,6 @@ class XMLParse {
 		Object[] result = new Object[3];
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			
-			/*
-			 * 避免 XXE 攻击
-			 * @since 2.8.21 
-			 */
-			dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-			dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
-	        dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-	        dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-	        dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-	        dbf.setXIncludeAware(false);
-	        dbf.setExpandEntityReferences(false);
-			
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			StringReader sr = new StringReader(xmltext);
 			InputSource is = new InputSource(sr);
@@ -57,10 +43,6 @@ class XMLParse {
 			Element root = document.getDocumentElement();
 			NodeList nodelist1 = root.getElementsByTagName("Encrypt");
 			NodeList nodelist2 = root.getElementsByTagName("ToUserName");
-			//公众平台使用ToUserName，第三方平台使用 AppId
-			if(nodelist2 == null || nodelist2.item(0) == null){
-				nodelist2 = root.getElementsByTagName("AppId");
-			}
 			result[0] = 0;
 			result[1] = nodelist1.item(0).getTextContent();
 			result[2] = nodelist2.item(0).getTextContent();

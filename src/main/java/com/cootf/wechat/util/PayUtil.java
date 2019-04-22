@@ -1,5 +1,14 @@
 package com.cootf.wechat.util;
 
+import com.cootf.wechat.bean.paymch.MchBaseResult;
+import com.cootf.wechat.bean.paymch.MchPayNotify;
+import com.cootf.wechat.bean.paymch.SecapiPayRefundNotify;
+import com.cootf.wechat.support.ExpireKey;
+import com.cootf.wechat.support.WeChatNotifyProcessor;
+import com.cootf.wechat.support.expirekey.DefaultExpireKey;
+import com.qq.weixin.mp.wxpay.WXPayConstants;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.security.Key;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -8,6 +17,9 @@ import java.util.UUID;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
@@ -27,6 +39,9 @@ public abstract class PayUtil {
 	
 	private static Logger logger = LoggerFactory.getLogger(PayUtil.class);
 
+	// 重复通知过滤
+	private static ExpireKey expireKey = new DefaultExpireKey();
+
 	/**
 	 * (MCH)生成支付JS请求对象
 	 * 
@@ -38,17 +53,98 @@ public abstract class PayUtil {
 	 *            商户支付密钥
 	 * @return json
 	 */
-	public static String generateMchPayJsRequestJson(String prepay_id, String appId, String key) {
+	public static String generateMchPayJsRequestJson(String prepay_id, String appId, String key,String signType) {
 		String package_ = "prepay_id=" + prepay_id;
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("appId", appId);
 		map.put("nonceStr", UUID.randomUUID().toString().replace("-", ""));
 		map.put("package", package_);
-		map.put("signType", "MD5");
+		map.put("signType", signType);
 		map.put("timeStamp", System.currentTimeMillis() / 1000 + "");
 		String paySign = SignatureUtil.generateSign(map, key);
 		map.put("paySign", paySign);
 		return JsonUtil.toJSONString(map);
+	}
+
+	/**
+	 * 微信支付结果通知回调
+	 * @param request
+	 * @param key
+	 * @return
+	 * @throws IOException
+	 */
+	public static String processPayResult(HttpServletRequest request,String key,
+			WeChatNotifyProcessor notifyProcessor) throws IOException {
+		// 获取请求数据
+		String xmlData = StreamUtils.copyToString(request.getInputStream(), Charset.forName("utf-8"));
+
+		// 将XML转为MAP,确保所有字段都参与签名验证
+		Map<String, String> mapData = XMLConverUtil.convertToMap(xmlData);
+		// 转换数据对象
+		MchPayNotify payNotify = XMLConverUtil.convertToObject(MchPayNotify.class, xmlData);
+		// 已处理 去重
+		MchBaseResult baseResult = new MchBaseResult();
+		if (expireKey.exists("WX_PAY_NOTIFY" + payNotify.getTransaction_id())) {
+			baseResult.setReturn_code(WXPayConstants.SUCCESS);
+			baseResult.setReturn_msg("OK");
+			return XMLConverUtil.convertToXML(baseResult);
+		}
+		// 签名验证
+		if (SignatureUtil.validateSign(mapData, key) && notifyProcessor.payResultProcess(payNotify)) {
+			// @since 2.8.5
+			payNotify.buildDynamicField(mapData);
+
+			expireKey.add("WX_PAY_NOTIFY" + payNotify.getTransaction_id(), 60);
+
+			baseResult.setReturn_code(WXPayConstants.SUCCESS);
+			baseResult.setReturn_msg("OK");
+		} else {
+			baseResult.setReturn_code(WXPayConstants.FAIL);
+			baseResult.setReturn_msg("ERROR");
+		}
+		return XMLConverUtil.convertToXML(baseResult);
+	}
+
+	/**
+	 * 退款结果通知回调
+	 * @param request
+	 * @param key
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public static String processRefundResult(HttpServletRequest request, String key,WeChatNotifyProcessor notifyProcessor)
+			throws ServletException, IOException {
+		// 获取请求数据
+		String xmlData = StreamUtils.copyToString(request.getInputStream(), Charset.forName("utf-8"));
+		// 转换数据对象
+		SecapiPayRefundNotify refundNotify = XMLConverUtil.convertToObject(SecapiPayRefundNotify.class, xmlData);
+
+		// 退款通知成功
+		MchBaseResult baseResult = new MchBaseResult();
+		if (refundNotify != null && WXPayConstants.SUCCESS.equals(refundNotify.getReturn_code())) {
+			// 解密数据 req_info
+			RefundNotifyReqInfo refundNotifyReqInfo = decryptRefundNotifyReqInfo(refundNotify.getReq_info(),
+					key);
+			if (refundNotifyReqInfo == null) {
+				baseResult.setReturn_code(WXPayConstants.FAIL);
+				baseResult.setReturn_msg("ERROR");
+				return XMLConverUtil.convertToXML(baseResult);
+			}
+			// 业务处理标记检查
+			if (!expireKey.exists("WX_REFUND_NOTIFY" + refundNotifyReqInfo.getRefund_id())
+					&& notifyProcessor.refundResultProcess(refundNotifyReqInfo)) {
+				// 添加业务处理标记
+				expireKey.add("WX_REFUND_NOTIFY" + refundNotifyReqInfo.getRefund_id(), 60);
+
+				baseResult.setReturn_code(WXPayConstants.SUCCESS);
+				baseResult.setReturn_msg("OK");
+			}
+		} else {
+			baseResult.setReturn_code(WXPayConstants.FAIL);
+			baseResult.setReturn_msg("ERROR");
+		}
+		return XMLConverUtil.convertToXML(baseResult);
 	}
 
 	/**

@@ -24,7 +24,7 @@ public class PKCS7Encoder {
 	 * @param count 需要进行填充补位操作的明文字节个数
 	 * @return 补齐用的字节数组
 	 */
-	public static byte[] encode(int count) {
+	static byte[] encode(int count) {
 		// 计算需要填充的位数
 		int amountToPad = BLOCK_SIZE - (count % BLOCK_SIZE);
 		if (amountToPad == 0) {

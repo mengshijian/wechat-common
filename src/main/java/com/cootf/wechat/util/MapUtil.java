@@ -1,7 +1,11 @@
 package com.cootf.wechat.util;
 
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,6 +82,36 @@ public abstract class MapUtil {
 			}
 		}
 		return tempMap;
+	}
+
+	/**
+	 * map转化对象
+	 * @param map
+	 * @param beanClass
+	 * @param <T>
+	 * @return
+	 * @throws Exception
+	 */
+	public static <T> T mapToObject(Map<String, String> map,Class<T> beanClass) throws Exception {
+		if (map == null) {
+			return null;
+		}
+		try {
+			Object obj = beanClass.newInstance();
+
+			BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
+			PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+			for (PropertyDescriptor property : propertyDescriptors) {
+				Method setter = property.getWriteMethod();
+				if (setter != null) {
+					setter.invoke(obj, map.get(property.getName()));
+				}
+			}
+			return (T) obj;
+		} catch (Exception e){
+			logger.error("", e);
+		}
+		return null;
 	}
 
 	/**

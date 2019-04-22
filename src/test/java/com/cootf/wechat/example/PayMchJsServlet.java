@@ -1,5 +1,6 @@
 package com.cootf.wechat.example;
 
+import com.qq.weixin.mp.wxpay.WXPayConstants.SignType;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -49,7 +50,8 @@ public class PayMchJsServlet extends HttpServlet{
 		
 		//@since 2.8.5  API返回数据签名验证
 		if(unifiedorderResult.getSign_status() !=null && unifiedorderResult.getSign_status()){
-			String json = PayUtil.generateMchPayJsRequestJson(unifiedorderResult.getPrepay_id(), appid, key);
+			String json = PayUtil.generateMchPayJsRequestJson(unifiedorderResult.getPrepay_id(), appid, key,
+					SignType.HMACSHA256.name());
 			
 			//将json 传到jsp 页面
 			request.setAttribute("json", json);
