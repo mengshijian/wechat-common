@@ -1,39 +1,32 @@
 package com.cootf.wechat.util;
 
+import com.cootf.wechat.api.PayMchAPI;
 import com.cootf.wechat.bean.paymch.MchBaseResult;
+import com.cootf.wechat.bean.paymch.MchPayApp;
+import com.cootf.wechat.bean.paymch.MchPayNativeReply;
 import com.cootf.wechat.bean.paymch.MchPayNotify;
+import com.cootf.wechat.bean.paymch.PapayEntrustweb;
+import com.cootf.wechat.bean.paymch.PapayH5entrustwebResult;
+import com.cootf.wechat.bean.paymch.RefundNotifyReqInfo;
 import com.cootf.wechat.bean.paymch.SecapiPayRefundNotify;
+import com.cootf.wechat.bean.paymch.WxaEntrustwebData;
 import com.cootf.wechat.support.ExpireKey;
 import com.cootf.wechat.support.WeChatNotifyProcessor;
 import com.cootf.wechat.support.expirekey.DefaultExpireKey;
+import com.qq.weixin.mp.aes.PKCS7Encoder;
 import com.qq.weixin.mp.wxpay.WXPayConstants;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.security.Key;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.qq.weixin.mp.aes.PKCS7Encoder;
-
-import com.cootf.wechat.api.PayMchAPI;
-import com.cootf.wechat.bean.paymch.MchPayApp;
-import com.cootf.wechat.bean.paymch.MchPayNativeReply;
-import com.cootf.wechat.bean.paymch.PapayEntrustweb;
-import com.cootf.wechat.bean.paymch.PapayH5entrustwebResult;
-import com.cootf.wechat.bean.paymch.RefundNotifyReqInfo;
-import com.cootf.wechat.bean.paymch.WxaEntrustwebData;
 
 public abstract class PayUtil {
 	
@@ -68,15 +61,13 @@ public abstract class PayUtil {
 
 	/**
 	 * 微信支付结果通知回调
-	 * @param request
+	 * @param xmlData
 	 * @param key
 	 * @return
 	 * @throws IOException
 	 */
-	public static String processPayResult(HttpServletRequest request,String key,
-			WeChatNotifyProcessor notifyProcessor) throws IOException {
-		// 获取请求数据
-		String xmlData = StreamUtils.copyToString(request.getInputStream(), Charset.forName("utf-8"));
+	public static String processPayResult(String xmlData,String key,
+			WeChatNotifyProcessor notifyProcessor) {
 
 		// 将XML转为MAP,确保所有字段都参与签名验证
 		Map<String, String> mapData = XMLConverUtil.convertToMap(xmlData);
@@ -107,16 +98,13 @@ public abstract class PayUtil {
 
 	/**
 	 * 退款结果通知回调
-	 * @param request
+	 * @param xmlData
 	 * @param key
 	 * @return
-	 * @throws ServletException
 	 * @throws IOException
 	 */
-	public static String processRefundResult(HttpServletRequest request, String key,WeChatNotifyProcessor notifyProcessor)
-			throws ServletException, IOException {
-		// 获取请求数据
-		String xmlData = StreamUtils.copyToString(request.getInputStream(), Charset.forName("utf-8"));
+	public static String processRefundResult(String xmlData, String key,
+			WeChatNotifyProcessor notifyProcessor) {
 		// 转换数据对象
 		SecapiPayRefundNotify refundNotify = XMLConverUtil.convertToObject(SecapiPayRefundNotify.class, xmlData);
 
