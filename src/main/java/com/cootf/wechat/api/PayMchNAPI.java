@@ -69,8 +69,8 @@ public class PayMchNAPI extends BaseAPI{
 
 	/**
 	 * 设置微信支付配置
-	 * @param t
-	 * @param <T>
+	 * @param t 配置对象
+	 * @param <T> 配置对象实例
 	 */
 	public static <T extends WXPayConfig> void setConfig(T t){
 		config = t;

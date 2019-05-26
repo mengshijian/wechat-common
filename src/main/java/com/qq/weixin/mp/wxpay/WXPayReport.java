@@ -80,8 +80,8 @@ public class WXPayReport {
 
         /**
          * 转换成 csv 格式
-         *
-         * @return
+         * @param key 微信支付key
+         * @return 返回字符
          */
         public String toLineString(String key) {
             String separator = ",";
@@ -177,8 +177,8 @@ public class WXPayReport {
     /**
      * 单例，双重校验，请在 JDK 1.5及更高版本中使用
      *
-     * @param config
-     * @return
+     * @param config 微信配置对象
+     * @return WXPayReport
      */
     public static WXPayReport getInstance(WXPayConfig config) {
         if (INSTANCE == null) {

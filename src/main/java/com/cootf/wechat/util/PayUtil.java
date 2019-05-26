@@ -44,6 +44,8 @@ public abstract class PayUtil {
 	 *            appId
 	 * @param key
 	 *            商户支付密钥
+	 * @param signType
+	 *            签名类型
 	 * @return json
 	 */
 	public static String generateMchPayJsRequestJson(String prepay_id, String appId, String key,String signType) {
@@ -61,10 +63,10 @@ public abstract class PayUtil {
 
 	/**
 	 * 微信支付结果通知回调
-	 * @param xmlData
-	 * @param key
-	 * @return
-	 * @throws IOException
+	 * @param xmlData 通知xml参数
+	 * @param key 微信支付key
+	 * @param notifyProcessor 通知处理器
+	 * @return 通知处理结果
 	 */
 	public static String processPayResult(String xmlData,String key,
 			WeChatNotifyProcessor notifyProcessor) {
@@ -98,10 +100,10 @@ public abstract class PayUtil {
 
 	/**
 	 * 退款结果通知回调
-	 * @param xmlData
-	 * @param key
-	 * @return
-	 * @throws IOException
+	 * @param xmlData 通知xml参数
+	 * @param key 微信支付key
+	 * @param notifyProcessor 通知处理器
+	 * @return 通知处理结果
 	 */
 	public static String processRefundResult(String xmlData, String key,
 			WeChatNotifyProcessor notifyProcessor) {

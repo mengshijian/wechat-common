@@ -175,6 +175,7 @@ public abstract class JsUtil {
 	 * @param prepay_id	预支付订单号
 	 * @param appId appId
 	 * @param key 商户支付密钥
+	 * @param signType 签名类型
 	 * @return json
 	 */
 	public static String generateChooseWXPayJson(String prepay_id,String appId,String key,String signType){

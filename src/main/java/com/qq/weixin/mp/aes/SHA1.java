@@ -25,7 +25,7 @@ public class SHA1 {
 	 * @param nonce 随机字符串
 	 * @param encrypt 密文
 	 * @return 安全签名
-	 * @throws AesException 
+	 * @throws AesException 异常
 	 */
 	public static String getSHA1(String token, String timestamp, String nonce, String encrypt) throws AesException
 			  {

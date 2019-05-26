@@ -79,9 +79,9 @@ public class WXPay {
      * 向 Map 中添加 appid、mch_id、nonce_str、sign_type、sign <br>
      * 该函数适用于商户适用于统一下单等接口，不适用于红包、代金券接口
      *
-     * @param reqData
-     * @return
-     * @throws Exception
+     * @param reqData 请求map
+     * @return 处理后map
+     * @throws Exception 异常
      */
     public Map<String, String> fillRequestData(Map<String, String> reqData) throws Exception {
         reqData.put("appid", config.getAppID());
@@ -102,7 +102,7 @@ public class WXPay {
      *
      * @param reqData 向wxpay post的请求数据
      * @return 签名是否有效
-     * @throws Exception
+     * @throws Exception 异常
      */
     public boolean isResponseSignatureValid(Map<String, String> reqData) throws Exception {
         // 返回数据的签名方式和请求中给定的签名方式是一致的
@@ -114,7 +114,7 @@ public class WXPay {
      *
      * @param reqData 向wxpay post的请求数据
      * @return 签名是否有效
-     * @throws Exception
+     * @throws Exception 异常
      */
     public boolean isPayResultNotifySignatureValid(Map<String, String> reqData) throws Exception {
         String signTypeInData = reqData.get(WXPayConstants.FIELD_SIGN_TYPE);
@@ -148,7 +148,7 @@ public class WXPay {
      * @param connectTimeoutMs 超时时间，单位是毫秒
      * @param readTimeoutMs 超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public String requestWithoutCert(String urlSuffix, Map<String, String> reqData,
                                      int connectTimeoutMs, int readTimeoutMs) throws Exception {
@@ -167,7 +167,7 @@ public class WXPay {
      * @param connectTimeoutMs 超时时间，单位是毫秒
      * @param readTimeoutMs 超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public String requestWithCert(String urlSuffix, Map<String, String> reqData,
                                   int connectTimeoutMs, int readTimeoutMs) throws Exception {
@@ -182,7 +182,7 @@ public class WXPay {
      * 处理 HTTPS API返回数据，转换成Map对象。return_code为SUCCESS时，验证签名。
      * @param xmlStr API返回的XML格式数据
      * @return Map类型数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> processResponseXml(String xmlStr) throws Exception {
         String RETURN_CODE = "return_code";
@@ -216,7 +216,7 @@ public class WXPay {
      * 场景：刷卡支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> microPay(Map<String, String> reqData) throws Exception {
         return this.microPay(reqData, this.config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -230,7 +230,7 @@ public class WXPay {
      * @param connectTimeoutMs 连接超时时间，单位是毫秒
      * @param readTimeoutMs 读超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> microPay(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
@@ -247,9 +247,9 @@ public class WXPay {
     /**
      * 提交刷卡支付，针对软POS，尽可能做成功
      * 内置重试机制，最多60s
-     * @param reqData
-     * @return
-     * @throws Exception
+     * @param reqData 请求参数
+     * @return 处理后参数
+     * @throws Exception 异常
      */
     public Map<String, String> microPayWithPos(Map<String, String> reqData) throws Exception {
         return this.microPayWithPos(reqData, this.config.getHttpConnectTimeoutMs());
@@ -258,10 +258,10 @@ public class WXPay {
     /**
      * 提交刷卡支付，针对软POS，尽可能做成功
      * 内置重试机制，最多60s
-     * @param reqData
-     * @param connectTimeoutMs
-     * @return
-     * @throws Exception
+     * @param reqData 请求参数
+     * @param connectTimeoutMs 连接次数
+     * @return 处理后map
+     * @throws Exception 异常
      */
     public Map<String, String> microPayWithPos(Map<String, String> reqData, int connectTimeoutMs) throws Exception {
         int remainingTimeMs = 60*1000;
@@ -334,7 +334,7 @@ public class WXPay {
      * 场景：公共号支付、扫码支付、APP支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> unifiedOrder(Map<String, String> reqData) throws Exception {
         return this.unifiedOrder(reqData, config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -348,7 +348,7 @@ public class WXPay {
      * @param connectTimeoutMs 连接超时时间，单位是毫秒
      * @param readTimeoutMs 读超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception  异常
      */
     public Map<String, String> unifiedOrder(Map<String, String> reqData,  int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
@@ -371,7 +371,7 @@ public class WXPay {
      * 场景：刷卡支付、公共号支付、扫码支付、APP支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> orderQuery(Map<String, String> reqData) throws Exception {
         return this.orderQuery(reqData, config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -385,7 +385,7 @@ public class WXPay {
      * @param connectTimeoutMs 连接超时时间，单位是毫秒
      * @param readTimeoutMs 读超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception  异常
      */
     public Map<String, String> orderQuery(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
@@ -405,7 +405,7 @@ public class WXPay {
      * 场景：刷卡支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception  异常
      */
     public Map<String, String> reverse(Map<String, String> reqData) throws Exception {
         return this.reverse(reqData, config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -420,7 +420,7 @@ public class WXPay {
      * @param connectTimeoutMs 连接超时时间，单位是毫秒
      * @param readTimeoutMs 读超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> reverse(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
@@ -440,7 +440,7 @@ public class WXPay {
      * 场景：公共号支付、扫码支付、APP支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception  异常
      */
     public Map<String, String> closeOrder(Map<String, String> reqData) throws Exception {
         return this.closeOrder(reqData, config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -454,7 +454,7 @@ public class WXPay {
      * @param connectTimeoutMs 连接超时时间，单位是毫秒
      * @param readTimeoutMs 读超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> closeOrder(Map<String, String> reqData,  int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
@@ -474,7 +474,7 @@ public class WXPay {
      * 场景：刷卡支付、公共号支付、扫码支付、APP支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> refund(Map<String, String> reqData) throws Exception {
         return this.refund(reqData, this.config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -489,7 +489,7 @@ public class WXPay {
      * @param connectTimeoutMs 连接超时时间，单位是毫秒
      * @param readTimeoutMs 读超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> refund(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
@@ -509,7 +509,7 @@ public class WXPay {
      * 场景：刷卡支付、公共号支付、扫码支付、APP支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> refundQuery(Map<String, String> reqData) throws Exception {
         return this.refundQuery(reqData, this.config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -523,7 +523,7 @@ public class WXPay {
      * @param connectTimeoutMs 连接超时时间，单位是毫秒
      * @param readTimeoutMs 读超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> refundQuery(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
@@ -543,7 +543,7 @@ public class WXPay {
      * 场景：刷卡支付、公共号支付、扫码支付、APP支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> downloadBill(Map<String, String> reqData) throws Exception {
         return this.downloadBill(reqData, this.config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -559,7 +559,7 @@ public class WXPay {
      * @param connectTimeoutMs 连接超时时间，单位是毫秒
      * @param readTimeoutMs 读超时时间，单位是毫秒
      * @return 经过封装的API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> downloadBill(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
@@ -591,7 +591,7 @@ public class WXPay {
      * 场景：刷卡支付、公共号支付、扫码支付、APP支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> report(Map<String, String> reqData) throws Exception {
         return this.report(reqData, this.config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -605,7 +605,7 @@ public class WXPay {
      * @param connectTimeoutMs 连接超时时间，单位是毫秒
      * @param readTimeoutMs 读超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> report(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
@@ -625,7 +625,7 @@ public class WXPay {
      * 场景：刷卡支付、扫码支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> shortUrl(Map<String, String> reqData) throws Exception {
         return this.shortUrl(reqData, this.config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -636,8 +636,10 @@ public class WXPay {
      * 作用：转换短链接<br>
      * 场景：刷卡支付、扫码支付
      * @param reqData 向wxpay post的请求数据
+     * @param connectTimeoutMs 连接超时时间
+     * @param readTimeoutMs 读超时时间
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> shortUrl(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
@@ -657,7 +659,7 @@ public class WXPay {
      * 场景：刷卡支付
      * @param reqData 向wxpay post的请求数据
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> authCodeToOpenid(Map<String, String> reqData) throws Exception {
         return this.authCodeToOpenid(reqData, this.config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
@@ -671,7 +673,7 @@ public class WXPay {
      * @param connectTimeoutMs 连接超时时间，单位是毫秒
      * @param readTimeoutMs 读超时时间，单位是毫秒
      * @return API返回数据
-     * @throws Exception
+     * @throws Exception 异常
      */
     public Map<String, String> authCodeToOpenid(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;

@@ -86,11 +86,11 @@ public abstract class MapUtil {
 
 	/**
 	 * map转化对象
-	 * @param map
-	 * @param beanClass
-	 * @param <T>
-	 * @return
-	 * @throws Exception
+	 * @param map 待转化map对象
+	 * @param beanClass 实体对象
+	 * @param <T> 泛型对象
+	 * @return 泛型实体
+	 * @throws Exception 异常
 	 */
 	public static <T> T mapToObject(Map<String, String> map,Class<T> beanClass) throws Exception {
 		if (map == null) {

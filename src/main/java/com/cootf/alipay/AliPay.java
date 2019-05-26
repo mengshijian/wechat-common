@@ -24,8 +24,11 @@ public class AliPay {
   public static <T extends AliPayConfig> void setConfig(T t){
     aliPayConfig = t;
   }
+
   /**
    * 功能：请求支付宝支付，生成支付交易.
+   * @param param 支付参数
+   * @return 阿里支付配置
    */
   public String generateAliPay(Map<String, String> param) {
     if (aliPayConfig == null){

@@ -36,7 +36,7 @@ public class WXPayUtil {
      *
      * @param strXML XML字符串
      * @return XML数据转换后的Map
-     * @throws Exception
+     * @throws Exception 异常
      */
     public static Map<String, String> xmlToMap(String strXML) throws Exception {
         try {
@@ -71,7 +71,7 @@ public class WXPayUtil {
      *
      * @param data Map类型数据
      * @return XML格式的字符串
-     * @throws Exception
+     * @throws Exception 异常
      */
     public static String mapToXml(Map<String, String> data) throws Exception {
         org.w3c.dom.Document document = WXPayXmlUtil.newDocument();
@@ -111,6 +111,7 @@ public class WXPayUtil {
      * @param data Map类型数据
      * @param key API密钥
      * @return 含有sign字段的XML
+     * @throws Exception 异常
      */
     public static String generateSignedXml(final Map<String, String> data, String key) throws Exception {
         return generateSignedXml(data, key, SignType.MD5);
@@ -123,6 +124,7 @@ public class WXPayUtil {
      * @param key API密钥
      * @param signType 签名类型
      * @return 含有sign字段的XML
+     * @throws Exception 异常
      */
     public static String generateSignedXml(final Map<String, String> data, String key, SignType signType) throws Exception {
         String sign = generateSignature(data, key, signType);
@@ -137,7 +139,7 @@ public class WXPayUtil {
      * @param xmlStr XML格式数据
      * @param key API密钥
      * @return 签名是否正确
-     * @throws Exception
+     * @throws Exception 异常
      */
     public static boolean isSignatureValid(String xmlStr, String key) throws Exception {
         Map<String, String> data = xmlToMap(xmlStr);
@@ -154,7 +156,7 @@ public class WXPayUtil {
      * @param data Map类型数据
      * @param key API密钥
      * @return 签名是否正确
-     * @throws Exception
+     * @throws Exception 异常
      */
     public static boolean isSignatureValid(Map<String, String> data, String key) throws Exception {
         return isSignatureValid(data, key, SignType.MD5);
@@ -167,7 +169,7 @@ public class WXPayUtil {
      * @param key API密钥
      * @param signType 签名方式
      * @return 签名是否正确
-     * @throws Exception
+     * @throws Exception 异常
      */
     public static boolean isSignatureValid(Map<String, String> data, String key, SignType signType) throws Exception {
         if (!data.containsKey(WXPayConstants.FIELD_SIGN) ) {
@@ -183,6 +185,7 @@ public class WXPayUtil {
      * @param data 待签名数据
      * @param key API密钥
      * @return 签名
+     * @throws Exception 异常
      */
     public static String generateSignature(final Map<String, String> data, String key) throws Exception {
         return generateSignature(data, key, SignType.MD5);
@@ -195,6 +198,7 @@ public class WXPayUtil {
      * @param key API密钥
      * @param signType 签名方式
      * @return 签名
+     * @throws Exception 异常
      */
     public static String generateSignature(final Map<String, String> data, String key, SignType signType) throws Exception {
         Set<String> keySet = data.keySet();
@@ -240,6 +244,7 @@ public class WXPayUtil {
      *
      * @param data 待处理数据
      * @return MD5结果
+     * @throws Exception 异常
      */
     public static String MD5(String data) throws Exception {
         java.security.MessageDigest md = MessageDigest.getInstance("MD5");
@@ -256,7 +261,7 @@ public class WXPayUtil {
      * @param data 待处理数据
      * @param key 密钥
      * @return 加密结果
-     * @throws Exception
+     * @throws Exception 异常
      */
     public static String HMACSHA256(String data, String key) throws Exception {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
@@ -272,7 +277,7 @@ public class WXPayUtil {
 
     /**
      * 日志
-     * @return
+     * @return 日志对象
      */
     public static Logger getLogger() {
         Logger logger = LoggerFactory.getLogger("wxpay java sdk");
@@ -281,7 +286,7 @@ public class WXPayUtil {
 
     /**
      * 获取当前时间戳，单位秒
-     * @return
+     * @return 时间戳
      */
     public static long getCurrentTimestamp() {
         return System.currentTimeMillis()/1000;
@@ -289,7 +294,7 @@ public class WXPayUtil {
 
     /**
      * 获取当前时间戳，单位毫秒
-     * @return
+     * @return 时间戳
      */
     public static long getCurrentTimestampMs() {
         return System.currentTimeMillis();

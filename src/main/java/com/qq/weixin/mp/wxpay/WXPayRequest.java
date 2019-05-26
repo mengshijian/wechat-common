@@ -211,10 +211,12 @@ public class WXPayRequest {
 
     /**
      * 可重试的，非双向认证的请求
-     * @param urlSuffix
-     * @param uuid
-     * @param data
-     * @return
+     * @param urlSuffix url前缀
+     * @param uuid 随机数
+     * @param data 数据
+     * @param autoReport 是否自动上报
+     * @return 请求串
+     * @throws Exception 异常
      */
     public String requestWithoutCert(String urlSuffix, String uuid, String data, boolean autoReport) throws Exception {
         return this.request(urlSuffix, uuid, data, config.getHttpConnectTimeoutMs(), config.getHttpReadTimeoutMs(), false, autoReport);
@@ -222,12 +224,14 @@ public class WXPayRequest {
 
     /**
      * 可重试的，非双向认证的请求
-     * @param urlSuffix
-     * @param uuid
-     * @param data
-     * @param connectTimeoutMs
-     * @param readTimeoutMs
-     * @return
+     * @param urlSuffix url前缀
+     * @param uuid 随机数
+     * @param data 数据
+     * @param connectTimeoutMs 连接超时时间
+     * @param readTimeoutMs 读超时时间
+     * @param autoReport  是否自动上报
+     * @return 请求串
+     * @throws Exception 异常
      */
     public String requestWithoutCert(String urlSuffix, String uuid, String data, int connectTimeoutMs, int readTimeoutMs,  boolean autoReport) throws Exception {
         return this.request(urlSuffix, uuid, data, connectTimeoutMs, readTimeoutMs, false, autoReport);
@@ -235,10 +239,12 @@ public class WXPayRequest {
 
     /**
      * 可重试的，双向认证的请求
-     * @param urlSuffix
-     * @param uuid
-     * @param data
-     * @return
+     * @param urlSuffix url前缀
+     * @param uuid 随机数
+     * @param data 数据
+     * @param autoReport  是否自动上报
+     * @return 请求串
+     * @throws Exception 异常
      */
     public String requestWithCert(String urlSuffix, String uuid, String data, boolean autoReport) throws Exception {
         return this.request(urlSuffix, uuid, data, config.getHttpConnectTimeoutMs(), config.getHttpReadTimeoutMs(), true, autoReport);
@@ -246,12 +252,14 @@ public class WXPayRequest {
 
     /**
      * 可重试的，双向认证的请求
-     * @param urlSuffix
-     * @param uuid
-     * @param data
-     * @param connectTimeoutMs
-     * @param readTimeoutMs
-     * @return
+     * @param urlSuffix url前缀
+     * @param uuid 随机数
+     * @param data 数据
+     * @param connectTimeoutMs 连接超时时间
+     * @param readTimeoutMs 读超时时间
+     * @param autoReport 是否自动上报
+     * @return 请求串
+     * @throws Exception 异常
      */
     public String requestWithCert(String urlSuffix, String uuid, String data, int connectTimeoutMs, int readTimeoutMs, boolean autoReport) throws Exception {
         return this.request(urlSuffix, uuid, data, connectTimeoutMs, readTimeoutMs, true, autoReport);
