@@ -39,7 +39,7 @@ public abstract class SignatureUtil {
 		}
 		String str = MapUtil.mapJoin(tmap, false, false);
 		if(sign_type == null){
-			sign_type = tmap.get("sign_type");
+			sign_type = tmap.get("signType");
 		}
 		if("HMAC-SHA256".equalsIgnoreCase(sign_type)){
 			try {
