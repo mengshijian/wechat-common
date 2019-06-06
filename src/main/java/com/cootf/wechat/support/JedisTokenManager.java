@@ -47,7 +47,7 @@ public class JedisTokenManager {
 
   /**
    *设置redis连接池
-   * @param pool
+   * @param pool 连接池
    */
   public static void setPool(JedisPool pool) {
     JedisTokenManager.pool = pool;
