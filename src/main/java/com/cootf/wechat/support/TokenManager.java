@@ -1,5 +1,6 @@
 package com.cootf.wechat.support;
 
+import com.alibaba.fastjson.JSONObject;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -118,7 +119,7 @@ public class TokenManager {
     try {
       Token token = TokenAPI.token(appid, secret);
       tokenMap.put(appid, token.getAccessToken());
-      logger.info("ACCESS_TOKEN refurbish with appid:{}", appid);
+      logger.info("ACCESS_TOKEN information with appid:{}", JSONObject.toJSONString(token));
     } catch (Exception e) {
       logger.error("ACCESS_TOKEN refurbish error with appid:{}", appid);
       logger.error("", e);
