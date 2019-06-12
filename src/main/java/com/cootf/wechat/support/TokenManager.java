@@ -118,8 +118,9 @@ public class TokenManager {
   private static void doRun(final String appid, final String secret) {
     try {
       Token token = TokenAPI.token(appid, secret);
+      logger.info("ACCESS_TOKEN:{}", JSONObject.toJSONString(token));
       tokenMap.put(appid, token.getAccessToken());
-      logger.info("ACCESS_TOKEN information with appid:{}", JSONObject.toJSONString(token));
+      logger.info("ACCESS_TOKEN refurbish with appid:{}", appid);
     } catch (Exception e) {
       logger.error("ACCESS_TOKEN refurbish error with appid:{}", appid);
       logger.error("", e);
