@@ -25,6 +25,7 @@ import com.cootf.wechat.config.WXPayConfig;
 import com.cootf.wechat.util.JsonUtil;
 import com.cootf.wechat.util.MapUtil;
 import com.qq.weixin.mp.wxpay.WXPay;
+import com.qq.weixin.mp.wxpay.WXPayConstants.SignType;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,10 +77,10 @@ public class PayMchNAPI extends BaseAPI{
 		config = t;
 	}
 
-	private static void initWxPay(){
+	private static void initWxPay(String signType){
 		try {
 			if (config != null){
-				wxPay = new WXPay(config, config.getNotifyUrl(), config.isAutoReport(),config.isUseSandbox());
+				wxPay = new WXPay(config, config.getNotifyUrl(), config.isAutoReport(),config.isUseSandbox(),signType);
 			}
 		} catch (Exception e) {
 			logger.error("init WXPay fail",e);
@@ -114,7 +115,7 @@ public class PayMchNAPI extends BaseAPI{
 			map.put("scene_info",JsonUtil.toJSONString(unifiedorder.getScene_info()));
 		}
 		try {
-			initWxPay();
+			initWxPay(unifiedorder.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.unifiedOrder(map);
 				return MapUtil.mapToObject(result,UnifiedorderResult.class);
@@ -138,7 +139,7 @@ public class PayMchNAPI extends BaseAPI{
 			map.put("detail",JsonUtil.toJSONString(micropay.getDetail()));
 		}
 		try {
-			initWxPay();
+			initWxPay(micropay.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.microPay(map);
 				return MapUtil.mapToObject(result,MicropayResult.class);
@@ -157,7 +158,7 @@ public class PayMchNAPI extends BaseAPI{
 	public static MchOrderInfoResult payOrderquery(MchOrderquery mchOrderquery){
 		Map<String,String> map = MapUtil.objectToMap(mchOrderquery);
 		try {
-			initWxPay();
+			initWxPay(mchOrderquery.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.orderQuery(map);
 				return MapUtil.mapToObject(result,MchOrderInfoResult.class);
@@ -178,7 +179,7 @@ public class PayMchNAPI extends BaseAPI{
 	public static MchBaseResult payCloseorder(Closeorder closeorder){
 		Map<String,String> map = MapUtil.objectToMap(closeorder);
 		try {
-			initWxPay();
+			initWxPay(closeorder.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.closeOrder(map);
 				return MapUtil.mapToObject(result,MchBaseResult.class);
@@ -202,7 +203,7 @@ public class PayMchNAPI extends BaseAPI{
 	public static SecapiPayRefundResult secapiPayRefund(SecapiPayRefund secapiPayRefund){
 		Map<String,String> map = MapUtil.objectToMap( secapiPayRefund);
 		try {
-			initWxPay();
+			initWxPay(secapiPayRefund.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.refund(map);
 				return MapUtil.mapToObject(result,SecapiPayRefundResult.class);
@@ -223,7 +224,7 @@ public class PayMchNAPI extends BaseAPI{
 	public static MchReverseResult secapiPayReverse(MchReverse mchReverse){
 		Map<String,String> map = MapUtil.objectToMap( mchReverse);
 		try {
-			initWxPay();
+			initWxPay(mchReverse.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.reverse(map);
 				return MapUtil.mapToObject(result,MchReverseResult.class);
@@ -245,7 +246,7 @@ public class PayMchNAPI extends BaseAPI{
 	public static RefundqueryResult payRefundquery(Refundquery refundquery){
 		Map<String,String> map = MapUtil.objectToMap(refundquery);
 		try {
-			initWxPay();
+			initWxPay(refundquery.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.refundQuery(map);
 				return MapUtil.mapToObject(result,RefundqueryResult.class);
@@ -264,7 +265,7 @@ public class PayMchNAPI extends BaseAPI{
 	public static DownloadbillResult payDownloadbill(MchDownloadbill downloadbill){
 		Map<String,String> map = MapUtil.objectToMap(downloadbill);
 		try {
-			initWxPay();
+			initWxPay(downloadbill.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.downloadBill(map);
 				return MapUtil.mapToObject(result,DownloadbillResult.class);
@@ -284,7 +285,7 @@ public class PayMchNAPI extends BaseAPI{
 	public static MchShorturlResult toolsShorturl(MchShorturl shorturl){
 		Map<String,String> map = MapUtil.objectToMap(shorturl);
 		try {
-			initWxPay();
+			initWxPay(shorturl.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.shortUrl(map);
 				return MapUtil.mapToObject(result,MchShorturlResult.class);
@@ -303,7 +304,7 @@ public class PayMchNAPI extends BaseAPI{
 	public static AuthcodetoopenidResult toolsAuthcodetoopenid(Authcodetoopenid authcodetoopenid){
 		Map<String,String> map = MapUtil.objectToMap(authcodetoopenid);
 		try {
-			initWxPay();
+			initWxPay(authcodetoopenid.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.authCodeToOpenid(map);
 				return MapUtil.mapToObject(result,AuthcodetoopenidResult.class);
@@ -323,7 +324,7 @@ public class PayMchNAPI extends BaseAPI{
 	public static MchBaseResult payitilReport(Report report){
 		Map<String,String> map = MapUtil.objectToMap(report);
 		try {
-			initWxPay();
+			initWxPay(report.getSign_type());
 			if (wxPay != null){
 				Map<String, String> result = wxPay.report(map);
 				return MapUtil.mapToObject(result,MchBaseResult.class);

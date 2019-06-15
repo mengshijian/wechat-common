@@ -15,36 +15,37 @@ public class WXPay {
     private WXPayRequest wxPayRequest;
 
     public WXPay(final WXPayConfig config) throws Exception {
-        this(config, null, true, false);
+        this(config, null, true, false, WXPayConstants.MD5);
     }
 
     public WXPay(final WXPayConfig config, final boolean autoReport) throws Exception {
-        this(config, null, autoReport, false);
+        this(config, null, autoReport, false, WXPayConstants.MD5);
     }
 
 
     public WXPay(final WXPayConfig config, final boolean autoReport, final boolean useSandbox) throws Exception{
-        this(config, null, autoReport, useSandbox);
+        this(config, null, autoReport, useSandbox, WXPayConstants.MD5);
     }
 
     public WXPay(final WXPayConfig config, final String notifyUrl) throws Exception {
-        this(config, notifyUrl, true, false);
+        this(config, notifyUrl, true, false, WXPayConstants.MD5);
     }
 
     public WXPay(final WXPayConfig config, final String notifyUrl, final boolean autoReport) throws Exception {
-        this(config, notifyUrl, autoReport, false);
+        this(config, notifyUrl, autoReport, false, WXPayConstants.MD5);
     }
 
-    public WXPay(final WXPayConfig config, final String notifyUrl, final boolean autoReport, final boolean useSandbox) throws Exception {
+    public WXPay(final WXPayConfig config, final String notifyUrl, final boolean autoReport, final boolean useSandbox,String signType) throws Exception {
         this.config = config;
         this.notifyUrl = notifyUrl;
         this.autoReport = autoReport;
         this.useSandbox = useSandbox;
-        if (useSandbox) {
-            this.signType = SignType.MD5; // 沙箱环境
-        }
-        else {
+        if (WXPayConstants.MD5.equals(signType)) {
+            this.signType = SignType.MD5;
+        } else if (WXPayConstants.MD5.equals(signType)) {
             this.signType = SignType.HMACSHA256;
+        } else {
+            this.signType = SignType.MD5;
         }
         this.wxPayRequest = new WXPayRequest(config);
     }
