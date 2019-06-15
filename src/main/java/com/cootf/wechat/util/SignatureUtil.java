@@ -67,7 +67,7 @@ public abstract class SignatureUtil {
 		String[] array = new String[]{token,timestamp,nonce};
 		Arrays.sort(array);
 		String s = StringUtils.arrayToDelimitedString(array, "");
-		return DigestUtils.shaHex(s);
+		return DigestUtils.sha1Hex(s);
 	}
 
 	/**

@@ -36,15 +36,15 @@ public class WXPayRequest {
 
     /**
      * 请求，只请求一次，不做重试
-     * @param domain
-     * @param urlSuffix
-     * @param uuid
-     * @param data
-     * @param connectTimeoutMs
-     * @param readTimeoutMs
+     * @param domain 请求域名
+     * @param urlSuffix url前缀
+     * @param uuid 随机数
+     * @param data 数据
+     * @param connectTimeoutMs 请求超时
+     * @param readTimeoutMs 读超时
      * @param useCert 是否使用证书，针对退款、撤销等操作
-     * @return
-     * @throws Exception
+     * @return 字符串
+     * @throws Exception 异常
      */
     private String requestOnce(final String domain, String urlSuffix, String uuid, String data, int connectTimeoutMs, int readTimeoutMs, boolean useCert) throws Exception {
         BasicHttpClientConnectionManager connManager;

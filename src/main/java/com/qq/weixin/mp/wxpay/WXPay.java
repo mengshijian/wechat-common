@@ -42,7 +42,7 @@ public class WXPay {
         this.useSandbox = useSandbox;
         if (WXPayConstants.MD5.equals(signType)) {
             this.signType = SignType.MD5;
-        } else if (WXPayConstants.MD5.equals(signType)) {
+        } else if (WXPayConstants.HMACSHA256.equals(signType)) {
             this.signType = SignType.HMACSHA256;
         } else {
             this.signType = SignType.MD5;

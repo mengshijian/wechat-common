@@ -18,8 +18,10 @@ import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.config.SocketConfig;
 import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.conn.ssl.DefaultHostnameVerifier;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContexts;
+import org.apache.http.ssl.SSLContexts;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -28,7 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * httpclient 4.3.x
+ * httpclient 4.5.x
  * @author Yi
  *
  */
@@ -52,8 +54,8 @@ public class HttpClientFactory{
 	 */
 	public static CloseableHttpClient createHttpClient(int maxTotal,int maxPerRoute,int timeout,int retryExecutionCount) {
 		try {
-			SSLContext sslContext = SSLContexts.custom().useSSL().build();
-			SSLConnectionSocketFactory sf = new SSLConnectionSocketFactory(sslContext,SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+			SSLContext sslContext = SSLContexts.custom().setProtocol("SSL").build();
+			SSLConnectionSocketFactory sf = new SSLConnectionSocketFactory(sslContext,new NoopHostnameVerifier());
 			PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
 			poolingHttpClientConnectionManager.setMaxTotal(maxTotal);
 			poolingHttpClientConnectionManager.setDefaultMaxPerRoute(maxPerRoute);
@@ -95,9 +97,9 @@ public class HttpClientFactory{
 	 */
 	public static CloseableHttpClient createKeyMaterialHttpClient(KeyStore keystore,String keyPassword,String[] supportedProtocols,int timeout,int retryExecutionCount) {
 		try {
-			SSLContext sslContext = SSLContexts.custom().useSSL().loadKeyMaterial(keystore, keyPassword.toCharArray()).build();
+			SSLContext sslContext = SSLContexts.custom().setProtocol("SSL").loadKeyMaterial(keystore, keyPassword.toCharArray()).build();
 			SSLConnectionSocketFactory sf = new SSLConnectionSocketFactory(sslContext,supportedProtocols,
-	                null,SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+	                null,new DefaultHostnameVerifier());
 			SocketConfig socketConfig = SocketConfig.custom().setSoTimeout(timeout).build();
 			return HttpClientBuilder.create()
 									.setDefaultSocketConfig(socketConfig)

@@ -86,7 +86,7 @@ public abstract class JsUtil {
 		
 		Map<String, String> tmap = MapUtil.order(map);
 		String str = MapUtil.mapJoin(tmap,true,false);
-		return DigestUtils.shaHex(str);
+		return DigestUtils.sha1Hex(str);
 	}
 
 	/**

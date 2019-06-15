@@ -62,7 +62,7 @@ public abstract class WxaUtil {
 	 */
 	public static WxaUserInfo validateUserInfo(String session_key, String rawData, String signature) {
 		try {
-			if (DigestUtils.shaHex(rawData + session_key).equals(signature)) {
+			if (DigestUtils.sha1Hex(rawData + session_key).equals(signature)) {
 				return JsonUtil.parseObject(rawData, WxaUserInfo.class);
 			}
 		} catch (Exception e) {
