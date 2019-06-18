@@ -54,7 +54,7 @@ weixin-popular 已支持的微信平台
 * [WxaAPI](https://github.com/mengshijian/weixin-common/wiki/WxaAPI) 微信小程序
 * [WxopenAPI](https://github.com/mengshijian/weixin-common/wiki/WxopenAPI) 微信小程序
 * [CommentAPI](https://github.com/mengshijian/weixin-common/wiki/CommentAPI) 文章评论留言
-* [OpenAPI](https://github.com/mengshijian/weixin-common/wiki/OpenAPI) 微信开放平台帐号管理
+* [OpenAPI](https://github.com/mengshijian/wechat-common/wiki/OpenApi) 微信开放平台帐号管理
 * [BizwifiAPI](https://github.com/mengshijian/weixin-common/wiki/BizwifiAPI) 微信连WiFi
 * [ScanAPI](https://github.com/mengshijian/weixin-common/wiki/ScanAPI) 微信扫一扫
 * [SemanticAPI](https://github.com/mengshijian/weixin-common/wiki/SemanticAPI) 微信智能
