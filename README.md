@@ -1,4 +1,4 @@
-weixin-popular
+weixin-common
 ==============
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.liyiorg/weixin-popular/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.liyiorg/weixin-popular/)
 [![GitHub release](https://img.shields.io/github/release/liyiorg/weixin-popular.svg)](https://github.com/liyiorg/weixin-popular/releases)
@@ -24,52 +24,52 @@ weixin-popular 已支持的微信平台
 ## maven
 ```xml
 <dependency>
-  <groupId>com.github.liyiorg</groupId>
-  <artifactId>weixin-popular</artifactId>
-  <version>2.8.26</version>
+  <groupId>com.github.mengsj</groupId>
+  <artifactId>weixin-common</artifactId>
+  <version>2.8.28</version>
 </dependency>
 ```
-* [升级注意事项](https://github.com/liyiorg/weixin-popular/wiki/jar_update)
+* [升级注意事项](https://github.com/liyiorg/weixin-common/wiki/jar_update)
 
 ## API 列表
-* [TokenAPI](https://github.com/liyiorg/weixin-popular/wiki/TokenAPI) access_token 获取
-* [MediaAPI](https://github.com/liyiorg/weixin-popular/wiki/MediaAPI) 多媒体上传下载(临时素材)
-* [MaterialAPI](https://github.com/liyiorg/weixin-popular/wiki/MaterialAPI) 永久素材
-* [MenuAPI](https://github.com/liyiorg/weixin-popular/wiki/MenuAPI) 菜单、个性化菜单
-* [MessageAPI](https://github.com/liyiorg/weixin-popular/wiki/MessageAPI) 信息发送（客服消息、群发消息、模板消息）
-* [PayMchAPI](https://github.com/liyiorg/weixin-popular/wiki/PayMchAPI) 支付订单、红包、企业付款、委托代扣、代扣费(商户平台版)、分账
-* [QrcodeAPI](https://github.com/liyiorg/weixin-popular/wiki/QrcodeAPI) 二维码
-* [SnsAPI](https://github.com/liyiorg/weixin-popular/wiki/SnsAPI) 网签授权
-* [UserAPI](https://github.com/liyiorg/weixin-popular/wiki/UserAPI) 用户管理、分组、标签、黑名单
-* [ShorturlAPI](https://github.com/liyiorg/weixin-popular/wiki/ShorturlAPI) 长链接转短链接
-* [TicketAPI](https://github.com/liyiorg/weixin-popular/wiki/TicketAPI) JSAPI ticket
-* [ComponentAPI](https://github.com/liyiorg/weixin-popular/wiki/ComponentAPI) 第三方平台开发
-* [CallbackipAPI](https://github.com/liyiorg/weixin-popular/wiki/CallbackipAPI) 获取微信服务器IP地址
-* [ClearQuotaAPI](https://github.com/liyiorg/weixin-popular/wiki/ClearQuotaAPI) 接口调用频次清零
-* [PoiAPI](https://github.com/liyiorg/weixin-popular/wiki/PoiAPI) 微信门店 @Moyq5 (贡献)
-* [CardAPI](https://github.com/liyiorg/weixin-popular/wiki/CardAPI) 微信卡券 @Moyq5 (贡献)
-* [ShakearoundAPI](https://github.com/liyiorg/weixin-popular/wiki/ShakearoundAPI) 微信摇一摇周边 @Moyq5 (贡献)
-* [DatacubeAPI](https://github.com/liyiorg/weixin-popular/wiki/DataCubeAPI) 数据统计 @Moyq5 (贡献)
-* [CustomserviceAPI](https://github.com/liyiorg/weixin-popular/wiki/CustomserviceAPI) 客服功能  @ConciseA (贡献)
-* [WxaAPI](https://github.com/liyiorg/weixin-popular/wiki/WxaAPI) 微信小程序
-* [WxopenAPI](https://github.com/liyiorg/weixin-popular/wiki/WxopenAPI) 微信小程序
-* [CommentAPI](https://github.com/liyiorg/weixin-popular/wiki/CommentAPI) 文章评论留言
-* [OpenAPI](https://github.com/liyiorg/weixin-popular/wiki/OpenAPI) 微信开放平台帐号管理
-* [BizwifiAPI](https://github.com/liyiorg/weixin-popular/wiki/BizwifiAPI) 微信连WiFi
-* [ScanAPI](https://github.com/liyiorg/weixin-popular/wiki/ScanAPI) 微信扫一扫
-* [SemanticAPI](https://github.com/liyiorg/weixin-popular/wiki/SemanticAPI) 微信智能
+* [TokenAPI](https://github.com/mengshijian/weixin-common/wiki/TokenAPI) access_token 获取
+* [MediaAPI](https://github.com/mengshijian/weixin-common/wiki/MediaAPI) 多媒体上传下载(临时素材)
+* [MaterialAPI](https://github.com/mengshijian/weixin-common/wiki/MaterialAPI) 永久素材
+* [MenuAPI](https://github.com/mengshijian/weixin-common/wiki/MenuAPI) 菜单、个性化菜单
+* [MessageAPI](https://github.com/mengshijian/weixin-common/wiki/MessageAPI) 信息发送（客服消息、群发消息、模板消息）
+* [PayMchAPI](https://github.com/mengshijian/weixin-common/wiki/PayMchAPI) 支付订单、红包、企业付款、委托代扣、代扣费(商户平台版)、分账
+* [QrcodeAPI](https://github.com/mengshijian/weixin-common/wiki/QrcodeAPI) 二维码
+* [SnsAPI](https://github.com/mengshijian/weixin-common/wiki/SnsAPI) 网签授权
+* [UserAPI](https://github.com/mengshijian/weixin-common/wiki/UserAPI) 用户管理、分组、标签、黑名单
+* [ShorturlAPI](https://github.com/mengshijian/weixin-common/wiki/ShorturlAPI) 长链接转短链接
+* [TicketAPI](https://github.com/mengshijian/weixin-common/wiki/TicketAPI) JSAPI ticket
+* [ComponentAPI](https://github.com/mengshijian/weixin-common/wiki/ComponentAPI) 第三方平台开发
+* [CallbackipAPI](https://github.com/mengshijian/weixin-common/wiki/CallbackipAPI) 获取微信服务器IP地址
+* [ClearQuotaAPI](https://github.com/mengshijian/weixin-common/wiki/ClearQuotaAPI) 接口调用频次清零
+* [PoiAPI](https://github.com/mengshijian/weixin-common/wiki/PoiAPI) 微信门店 @Moyq5 (贡献)
+* [CardAPI](https://github.com/mengshijian/weixin-common/wiki/CardAPI) 微信卡券 @Moyq5 (贡献)
+* [ShakearoundAPI](https://github.com/mengshijian/weixin-common/wiki/ShakearoundAPI) 微信摇一摇周边 @Moyq5 (贡献)
+* [DatacubeAPI](https://github.com/mengshijian/weixin-common/wiki/DataCubeAPI) 数据统计 @Moyq5 (贡献)
+* [CustomserviceAPI](https://github.com/mengshijian/weixin-common/wiki/CustomserviceAPI) 客服功能  @ConciseA (贡献)
+* [WxaAPI](https://github.com/mengshijian/weixin-common/wiki/WxaAPI) 微信小程序
+* [WxopenAPI](https://github.com/mengshijian/weixin-common/wiki/WxopenAPI) 微信小程序
+* [CommentAPI](https://github.com/mengshijian/weixin-common/wiki/CommentAPI) 文章评论留言
+* [OpenAPI](https://github.com/mengshijian/weixin-common/wiki/OpenAPI) 微信开放平台帐号管理
+* [BizwifiAPI](https://github.com/mengshijian/weixin-common/wiki/BizwifiAPI) 微信连WiFi
+* [ScanAPI](https://github.com/mengshijian/weixin-common/wiki/ScanAPI) 微信扫一扫
+* [SemanticAPI](https://github.com/mengshijian/weixin-common/wiki/SemanticAPI) 微信智能
 
 ### 待开发API
-* [MerchantAPI](https://github.com/liyiorg/weixin-popular/wiki/MerchantAPI) 微信小店
-* [DeviceAPI](https://github.com/liyiorg/weixin-popular/wiki/DeviceAPI) 设备功能
+* [MerchantAPI](https://github.com/mengshijian/weixin-common/wiki/MerchantAPI) 微信小店
+* [DeviceAPI](https://github.com/mengshijian/weixin-common/wiki/DeviceAPI) 设备功能
 
 ## API调用模式
-* [调用模式](https://github.com/liyiorg/weixin-popular/wiki/API调用模式)
+* [调用模式](https://github.com/liyiorg/weixin-common/wiki/API调用模式)
 
 ## EMOJI 表情
-* :four_leaf_clover: [API 使用](https://github.com/liyiorg/weixin-popular/wiki/emoji_api)
-* :palm_tree: [页面 使用](https://github.com/liyiorg/weixin-popular/wiki/emoji_web)
-* :tiger: [EmojiUtil](https://github.com/liyiorg/weixin-popular/wiki/emoji_tool)
+* :four_leaf_clover: [API 使用](https://github.com/mengshijian/weixin-common/wiki/emoji_api)
+* :palm_tree: [页面 使用](https://github.com/mengshijian/weixin-common/wiki/emoji_web)
+* :tiger: [EmojiUtil](https://github.com/mengshijian/weixin-common/wiki/emoji_tool)
 
 ## 日志记录
 * 2.7.0+ 版本后增加日志记录
@@ -84,21 +84,21 @@ weixin-popular 已支持的微信平台
 * WxaUtil		     小程序用户信息解密、校验
 
 ## example
-* [消息事件接收](https://github.com/liyiorg/weixin-popular/wiki/消息事件接收)
-* [消息事件接收(加密)](https://github.com/liyiorg/weixin-popular/wiki/消息事件接收(加密))
-* [微信支付](https://github.com/liyiorg/weixin-popular/wiki/微信支付MCH)
-* [微信退款](https://github.com/liyiorg/weixin-popular/wiki/微信退款MCH)
+* [消息事件接收](https://github.com/mengshijian/weixin-common/wiki/消息事件接收)
+* [消息事件接收(加密)](https://github.com/mengshijian/weixin-common/wiki/消息事件接收(加密))
+* [微信支付](https://github.com/mengshijian/weixin-common/wiki/微信支付MCH)
+* [微信退款](https://github.com/mengshijian/weixin-common/wiki/微信退款MCH)
 
 ## support
-* [TokenManager token 自动刷新](https://github.com/liyiorg/weixin-popular/wiki/TokenManager-token-自动刷新)
-* [TicketManager ticket 自动刷新](https://github.com/liyiorg/weixin-popular/wiki/TicketManager-ticket-自动刷新)
-* [设置API HttpClient 请求池大小](https://github.com/liyiorg/weixin-popular/wiki/设置API%20HttpClient%20请求池大小)
-* [设置API HttpClient 超时及异常重试](https://github.com/liyiorg/weixin-popular/wiki/超时及异常重试)
-* [设置API MCH KeyStore](https://github.com/liyiorg/weixin-popular/wiki/设置API%20MCH%20KeyStore)
-* [排除重复的异步通知](https://github.com/liyiorg/weixin-popular/wiki/排除重复的异步通知)
+* [TokenManager token 自动刷新](https://github.com/mengshijian/weixin-common/wiki/TokenManager-token-自动刷新)
+* [TicketManager ticket 自动刷新](https://github.com/mengshijian/weixin-common/wiki/TicketManager-ticket-自动刷新)
+* [设置API HttpClient 请求池大小](https://github.com/mengshijian/weixin-common/wiki/设置API%20HttpClient%20请求池大小)
+* [设置API HttpClient 超时及异常重试](https://github.com/mengshijian/weixin-common/wiki/超时及异常重试)
+* [设置API MCH KeyStore](https://github.com/mengshijian/weixin-common/wiki/设置API%20MCH%20KeyStore)
+* [排除重复的异步通知](https://github.com/mengshijian/weixin-common/wiki/排除重复的异步通知)
 
 ## 激励一下
-![微信扫一扫](https://raw.githubusercontent.com/liyiorg/weixin-popular/2.8.x/jlyx_wx.jpg)
+![微信扫一扫](https://raw.githubusercontent.com/mengshijian/weixin-common/2.8.x/jlyx_wx.jpg)
 
 ## 参考资料
 * [微信公众平台开发者文档](http://mp.weixin.qq.com/wiki/index.php)
