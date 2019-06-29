@@ -144,7 +144,7 @@ public class TicketManager {
     try {
       String access_token = TokenManager.getToken(appid);
       Ticket ticket = TicketAPI.ticketGetticket(access_token, type);
-      ticketMap.put(key, ticket.getTicket());
+      ticketMap.put(key, ticket.getTicket() + KEY_JOIN + (System.currentTimeMillis()/1000 + ticket.getExpires_in()));
       logger.info("TICKET refurbish with appid:{} type:{}", appid, type);
     } catch (Exception e) {
       logger.error("TICKET refurbish error with appid:{} type:{}", appid, type);

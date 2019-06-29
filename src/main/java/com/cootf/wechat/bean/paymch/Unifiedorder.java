@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.cootf.wechat.bean.AdaptorCDATA;
 
 import java.math.BigDecimal;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * 统一支付请求参数
@@ -315,5 +317,14 @@ public class Unifiedorder extends MchVersion{
 	public void setScene_info(SceneInfo scene_info) {
 		this.scene_info = scene_info;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
 }
